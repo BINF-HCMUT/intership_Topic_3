@@ -36,7 +36,11 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+//extern ADC_HandleTypeDef hadc1;
+//extern I2C_HandleTypeDef hi2c1;
+//extern TIM_HandleTypeDef htim2;
+//extern TIM_HandleTypeDef htim4;
+//extern UART_HandleTypeDef huart2;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -48,6 +52,8 @@ extern "C" {
 /* USER CODE BEGIN EM */
 
 /* USER CODE END EM */
+
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
@@ -70,12 +76,12 @@ void Error_Handler(void);
 #define LED_YELLOW_GPIO_Port GPIOA
 #define LED_GREEN_Pin GPIO_PIN_7
 #define LED_GREEN_GPIO_Port GPIOA
-#define button0_Pin GPIO_PIN_0
-#define button0_GPIO_Port GPIOB
-#define button1_Pin GPIO_PIN_1
-#define button1_GPIO_Port GPIOB
-#define button2_Pin GPIO_PIN_2
-#define button2_GPIO_Port GPIOB
+#define Button0_Pin GPIO_PIN_0
+#define Button0_GPIO_Port GPIOB
+#define Button1_Pin GPIO_PIN_1
+#define Button1_GPIO_Port GPIOB
+#define Button2_Pin GPIO_PIN_2
+#define Button2_GPIO_Port GPIOB
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14

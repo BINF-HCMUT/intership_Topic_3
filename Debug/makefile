@@ -82,7 +82,7 @@ main-build: week1_proj.elf secondary-outputs
 
 # Tool invocations
 week1_proj.elf week1_proj.map: $(OBJS) $(USER_OBJS) D:\MCU_projWeek1\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "week1_proj.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\MCU_projWeek1\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="week1_proj.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-g++ -o "week1_proj.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\MCU_projWeek1\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="week1_proj.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
