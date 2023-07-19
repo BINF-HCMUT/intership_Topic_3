@@ -1,4 +1,7 @@
-../Core/Src/RGB.c:20:6:Set_LED	24	static
-../Core/Src/RGB.c:27:6:Set_Brightness	16	static
-../Core/Src/RGB.c:46:6:WS2812_Send	32	static
-../Core/Src/RGB.c:101:6:testBuzzer	16	static
+../Core/Src/RGB.c:22:6:Set_LED	24	static
+../Core/Src/RGB.c:34:6:Set_Brightness	40	static
+../Core/Src/RGB.c:53:6:WS2812_Send	32	static
+../Core/Src/RGB.c:131:6:Reset_LED	16	static
+../Core/Src/RGB.c:147:9:rainbow_effect_left	40	static
+../Core/Src/RGB.c:177:9:rainbow_effect_right	40	static
+../Core/Src/RGB.c:205:6:testBuzzer	16	static

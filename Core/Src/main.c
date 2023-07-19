@@ -29,7 +29,7 @@
 #include "DHT20.h"
 #include "RGB.h"
 #include "button.h"
-
+#include "stm32f1xx_hal_tim.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -71,12 +71,11 @@ static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
-void SystemClock_Config(void);
+void		 SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_USART2_UART_Init(void);
-static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -135,6 +134,7 @@ void ledStatus(GPIO_TypeDef *GPIOx, uint16_t pin, uint8_t PinState){
 }
 
 uint8_t buffer[MAX_BUFFER_SIZE];
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if( huart -> Instance == USART2 ) {
 		buffer[index_buffer++] = temp;
@@ -145,12 +145,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	}
 }
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
-//	 if (htim->Instance == TIM1 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
-//			datasentflag=1;
-//	 }
-	HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
-	datasentflag=1;
+	 if (htim->Instance == TIM1 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+		    HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
+			datasentflag = 1;
+	 }
 }
+
 
 // Function to initialize PWM and DMA
 void PWM_DMA_Init(void)
@@ -169,7 +169,7 @@ void PWM_DMA_Init(void)
   hdma_tim1_ch1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD; // Peripheral data size is half-word (16 bits)
   hdma_tim1_ch1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; // Memory data size is half-word (16 bits)
   hdma_tim1_ch1.Init.Mode = DMA_NORMAL; // DMA mode set to normal
-  hdma_tim1_ch1.Init.Priority = DMA_PRIORITY_HIGH; // DMA priority set to high
+  hdma_tim1_ch1.Init.Priority = DMA_PRIORITY_LOW; // DMA priority set to high
   HAL_DMA_Init(&hdma_tim1_ch1);
 
   // Associate the DMA handle with the PWM timer
@@ -180,7 +180,7 @@ void PWM_DMA_Init(void)
   htim1.Instance = PWM_TIMER;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 1000; // Set the PWM period (example value)
+  htim1.Init.Period = 89; // Set the PWM period (example value)
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   HAL_TIM_PWM_Init(&htim1);
@@ -243,10 +243,13 @@ int main(void)
   PWM_DMA_Init();
 
 //
-    Set_LED(0, 255,0, 0);
-//  Set_LED(1, 0, 255, 0);
-//  Set_LED(2, 0, 0, 255);
-//  Set_LED(3, 46, 89, 128);
+    Set_LED(0, 0, 255, 0);
+//    HAL_Delay(1000);
+//    Set_LED(1, 0, 0, 255);
+//    HAL_Delay(1000);
+//    Set_LED(2, 0, 0, 255);
+//    HAL_Delay(1000);
+//    Set_LED(3, 46, 89, 128);
 
 //  char txData[25];// = "Hello DT!\r\n";
 //  SCH_Init();
@@ -263,7 +266,10 @@ int main(void)
 //     uint8_t status1 = 1;
 //     uint8_t status2 = 1;
 
-
+    Set_Brightness(10);
+    HAL_Delay(100);
+    WS2812_Send();
+//    testBuzzer();
 
   /* USER CODE END 2 */
 
@@ -271,18 +277,20 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(is_button_pressed(0) == 1){
-		  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-	  }
+//	  rainbow_effect_right();
+	  HAL_Delay (30);
+//	  if(is_button_pressed(0) == 1){
+//		  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+//	  }
 //	  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 //	  HAL_Delay(1000);
 //	         HAL_Delay(1000);
-	  for (int i=0; i<10; i++)
-	  	  {
-	  		  Set_Brightness(i);
-	  		  WS2812_Send();
-	  		  HAL_Delay(10);
-	  	  }
+//	  for (int i=0; i<10; i++)
+//	  	  {
+//	  		  Set_Brightness(i);
+//	  		  WS2812_Send();
+//	  		  HAL_Delay(10);
+//	  	  }
 //	  	  for (int i=45; i>=0; i--)
 //	  	  {
 //	  		  Set_Brightness(i);
@@ -646,6 +654,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM2){
 		button_reading();

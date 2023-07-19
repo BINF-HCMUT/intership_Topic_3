@@ -11,7 +11,7 @@
 #include "main.h"
 #define MAX_BUFFER_SIZE 30
 #define MAX_LED 4
-#define USE_BRIGHTNESS 0
+#define USE_BRIGHTNESS 1
 #define PI 3.14159265
 
 #define PWM_DMA_STREAM  DMA1_Channel2
