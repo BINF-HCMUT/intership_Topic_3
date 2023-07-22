@@ -178,10 +178,10 @@ void lcdBacklight(){
 
 void lcdSetBacklight(uint8_t state){
 	if(state){
-		backlight();
+		lcdBacklight();
 	}
 	else{
-		noBacklight();
+		lcdNoBacklight();
 	}
 }
 

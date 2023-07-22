@@ -1,8 +1,9 @@
-../Core/Src/newRGB.c:33:23:scale8	16	static
-../Core/Src/newRGB.c:38:6:led_set_RGB	24	static
-../Core/Src/newRGB.c:52:6:led_set_RGBW	24	static
-../Core/Src/newRGB.c:60:6:led_set_all_RGB	24	static
-../Core/Src/newRGB.c:65:6:led_set_all_RGBW	40	static
-../Core/Src/newRGB.c:70:6:led_render	16	static
-../Core/Src/newRGB.c:112:6:HAL_TIM_PWM_PulseFinishedHalfCpltCallback	24	static
-../Core/Src/newRGB.c:140:6:HAL_TIM_PWM_PulseFinishedCallback	24	static
+../Core/Src/newRGB.c:40:23:scale8	16	static
+../Core/Src/newRGB.c:45:6:NeoPixel_led_set_RGB	24	static
+../Core/Src/newRGB.c:62:6:NeoPixel_led_set_all_RGB	16	static
+../Core/Src/newRGB.c:67:6:NeoPixel_led_render	16	static
+../Core/Src/newRGB.c:109:6:HAL_TIM_PWM_PulseFinishedHalfCpltCallback	24	static
+../Core/Src/newRGB.c:137:6:HAL_TIM_PWM_PulseFinishedCallback	24	static
+../Core/Src/newRGB.c:167:6:NeoPixel_set_led_cycle	16	static
+../Core/Src/newRGB.c:177:7:NeoPixel_hslColor	16	static
+../Core/Src/newRGB.c:180:6:NeoPixel_hsl_to_rgb	32	static

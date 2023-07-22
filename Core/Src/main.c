@@ -83,7 +83,7 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint32_t hsl_to_rgb(uint8_t h, uint8_t s, uint8_t l);
+
 void func1(){
 	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 }
@@ -146,60 +146,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Receive_IT(&huart2, & temp, 1);
 	}
 }
-//void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
-//	 if (htim->Instance == TIM1 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
-//		    HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
-//			datasentflag = 1;
-//	 }
-//}
-
-
-//// Function to initialize PWM and DMA
-//void PWM_DMA_Init(void)
-//{
-//  // Enable the DMA clock
-//  __HAL_RCC_DMA1_CLK_ENABLE();
-//
-//  // Enable the PWM timer clock
-//  __HAL_RCC_TIM1_CLK_ENABLE();
-//
-//  // Configure the DMA stream and channel
-//  hdma_tim1_ch1.Instance = PWM_DMA_STREAM;
-//  hdma_tim1_ch1.Init.Direction = DMA_MEMORY_TO_PERIPH; // Transfer data from memory to peripheral
-//  hdma_tim1_ch1.Init.PeriphInc = DMA_PINC_DISABLE; // Peripheral increment mode disabled
-//  hdma_tim1_ch1.Init.MemInc = DMA_MINC_ENABLE; // Memory increment mode enabled
-//  hdma_tim1_ch1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD; // Peripheral data size is half-word (16 bits)
-//  hdma_tim1_ch1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; // Memory data size is half-word (16 bits)
-//  hdma_tim1_ch1.Init.Mode = DMA_NORMAL; // DMA mode set to normal
-//  hdma_tim1_ch1.Init.Priority = DMA_PRIORITY_LOW; // DMA priority set to high
-//  HAL_DMA_Init(&hdma_tim1_ch1);
-//
-//  // Associate the DMA handle with the PWM timer
-//  __HAL_LINKDMA(&htim1, hdma[TIM_DMA_ID_CC2], hdma_tim1_ch1);
-//
-//  // Configure the PWM timer and channel
-//  TIM_HandleTypeDef htim1;
-//  htim1.Instance = PWM_TIMER;
-//  htim1.Init.Prescaler = 0;
-//  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-//  htim1.Init.Period = 89; // Set the PWM period (example value)
-//  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-//  htim1.Init.RepetitionCounter = 0;
-//  HAL_TIM_PWM_Init(&htim1);
-//
-//  TIM_OC_InitTypeDef sConfigOC;
-//  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-//  sConfigOC.Pulse = 0; // Set the initial pulse width (example value)
-//  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-//  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-//  HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, PWM_CHANNEL);
-//
-//  // Start the PWM output
-//  HAL_TIM_PWM_Start(&htim1, PWM_CHANNEL);
-//
-//  // Start the DMA transfer
-//  HAL_TIM_PWM_Start_DMA(&htim1, PWM_CHANNEL, (uint32_t *)pwmData, sizeof(pwmData));
-//}
 
 /* USER CODE END 0 */
 
@@ -241,86 +187,13 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim1);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
-  // Initialize the PWM and DMA
-//  PWM_DMA_Init();
-
-//
-     uint8_t angle = 0;
-     const uint8_t angle_difference = 11;
-//    Set_LED(0, 0, 255, 0);
-//    HAL_Delay(1000);
-//    Set_LED(1, 0, 0, 255);
-//    HAL_Delay(1000);
-//    Set_LED(2, 0, 0, 255);
-//    HAL_Delay(1000);
-//    Set_LED(3, 46, 89, 128);
-
-//  char txData[25];// = "Hello DT!\r\n";
-//  SCH_Init();
-//     //this period task = 0.5s
-//     SCH_Add_Task(func1, 10, 50);
-//     //this period task = 1s
-//     SCH_Add_Task(func2, 15, 100);
-//     //this period task = 1.5s
-//     SCH_Add_Task(func3, 20, 150);
-//     ledMode(GPIOA, 5);
-//     ledMode(GPIOA, 6);
-//     setTimer1(50);
-//     setTimer2(100);
-//     uint8_t status1 = 1;
-//     uint8_t status2 = 1;
-//
-//    Set_Brightness(10);
-//    HAL_Delay(100);
-//    WS2812_Send();
-//    testBuzzer();
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	  for(uint8_t i = 0; i < 4 /* Change that to your amount of LEDs */; i++) {
-//	  			// Calculate color
-//	  			uint32_t rgb_color = hsl_to_rgb(angle + (i * angle_difference), 255, 127);
-//	  			// Set color
-//	  			led_set_RGB(i, (rgb_color >> 16) & 0xFF, (rgb_color >> 8) & 0xFF, rgb_color & 0xFF);
-//	  		}
-//	  		// Write to LED
-//		uint32_t rgb_color = hsl_to_rgb(angle + (2 * angle_difference), 255, 127);
-//		// Set color
-//		led_set_RGB(2, (rgb_color >> 16) & 0xFF, (rgb_color >> 8) & 0xFF, rgb_color & 0xFF);
-//	    	++angle;
-//	  uint32_t rgb_color = hsl_to_rgb(angle + (0 * angle_difference), 255, 127);
-	       uint32_t rgb_color = hsl_to_rgb(209, 255, 127);
-	        led_set_RGB(1, (rgb_color >> 16) & 0xFF, (rgb_color >> 8) & 0xFF, rgb_color & 0xFF);
-	  		led_render();
-	  		// Some delay
-	  		HAL_Delay(10);
-//	  rainbow_effect_right();
-//	  HAL_Delay (30);
-//	  if(is_button_pressed(0) == 1){
-//		  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-//	  }
-//	  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-//	  HAL_Delay(1000);
-//	         HAL_Delay(1000);
-//	  for (int i=0; i<10; i++)
-//	  	  {
-//	  		  Set_Brightness(i);
-//	  		  WS2812_Send();
-//	  		  HAL_Delay(10);
-//	  	  }
-//	  	  for (int i=45; i>=0; i--)
-//	  	  {
-//	  		  Set_Brightness(i);
-//	  		  WS2812_Send();
-//	  		  HAL_Delay (50);
-//	  	  }
-
-
-
+	  NeoPixel_set_led_cycle();
 //    SCH_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
@@ -683,35 +556,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	}
 	timerRun();
 	SCH_Update();
-}
-
-uint32_t hsl_to_rgb(uint8_t h, uint8_t s, uint8_t l) {
-	if(l == 0) return 0;
-
-	volatile uint8_t  r, g, b, lo, c, x, m;
-	volatile uint16_t h1, l1, H;
-	l1 = l + 1;
-	if (l < 128)    c = ((l1 << 1) * s) >> 8;
-	else            c = (512 - (l1 << 1)) * s >> 8;
-
-	H = h * 6;              // 0 to 1535 (actually 1530)
-	lo = H & 255;           // Low byte  = primary/secondary color mix
-	h1 = lo + 1;
-
-	if ((H & 256) == 0)   x = h1 * c >> 8;          // even sextant, like red to yellow
-	else                  x = (256 - h1) * c >> 8;  // odd sextant, like yellow to green
-
-	m = l - (c >> 1);
-	switch(H >> 8) {       // High byte = sextant of colorwheel
-	 case 0 : r = c; g = x; b = 0; break; // R to Y
-	 case 1 : r = x; g = c; b = 0; break; // Y to G
-	 case 2 : r = 0; g = c; b = x; break; // G to C
-	 case 3 : r = 0; g = x; b = c; break; // C to B
-	 case 4 : r = x; g = 0; b = c; break; // B to M
-	 default: r = c; g = 0; b = x; break; // M to R
-	}
-
-	return (((uint32_t)r + m) << 16) | (((uint32_t)g + m) << 8) | ((uint32_t)b + m);
 }
 
 /* USER CODE END 4 */

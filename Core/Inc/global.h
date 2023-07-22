@@ -27,4 +27,6 @@ extern uint8_t str[12];
 extern uint16_t pwmData[(24*MAX_LED)+50];
 extern uint8_t backlight_state;
 extern uint8_t datasentflag;
+
+extern uint32_t NeoPixel_RGB_Color;
 #endif /* INC_GLOBAL_H_ */
