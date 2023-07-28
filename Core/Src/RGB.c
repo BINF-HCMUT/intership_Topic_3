@@ -203,8 +203,9 @@ uint8_t rainbow_effect_right() {
 }
 
 void testBuzzer(void){
-	for(uint8_t i = 0; i< 100; ++i){
-		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, i);
-	}
+//	for(uint8_t i = 0; i< 100; ++i){
+//		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, i);
+//	}
+	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 100);
 }
 

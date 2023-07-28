@@ -29,4 +29,8 @@ extern uint8_t backlight_state;
 extern uint8_t datasentflag;
 
 extern uint32_t NeoPixel_RGB_Color;
+extern uint8_t NeoPixel_status;
+
+//gpio config
+extern uint16_t GPIO_PIN[16];
 #endif /* INC_GLOBAL_H_ */

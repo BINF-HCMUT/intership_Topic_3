@@ -17,6 +17,6 @@ void     NeoPixel_led_set_all_RGB();
 void     NeoPixel_led_render();
 void     NeoPixel_hsl_to_rgb(uint8_t h, uint8_t s, uint8_t l);
 void	 NeoPixel_set_led_cycle();
-
-
+void	 NeoPixel_clear_all_led();
+void	 NeoPixel_toggleLed();
 #endif /* INC_NEWRGB_H_ */

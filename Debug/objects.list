@@ -1,4 +1,5 @@
 "./Core/Src/DHT20.o"
+"./Core/Src/GPIO.o"
 "./Core/Src/LCD.o"
 "./Core/Src/RGB.o"
 "./Core/Src/button.o"

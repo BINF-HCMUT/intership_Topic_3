@@ -41,6 +41,33 @@ static inline uint8_t scale8(uint8_t x, uint8_t scale) {
   return ((uint16_t)x * scale) >> 8;
 }
 
+void NeoPixel_clear_all_led(){
+	   for (uint_fast8_t i = 0; i < NUM_PIXELS; ++i) {
+	#if (NUM_BPP == 4) // SK6812
+	        rgb_arr[4 * i] = 0;          // G = 0
+	        rgb_arr[4 * i + 1] = 0;      // R = 0
+	        rgb_arr[4 * i + 2] = 0;      // B = 0
+	        rgb_arr[4 * i + 3] = 0;      // Reserved = 0
+	#else // WS2812B
+	        rgb_arr[3 * i] = 0;          // G = 0
+	        rgb_arr[3 * i + 1] = 0;      // R = 0
+	        rgb_arr[3 * i + 2] = 0;      // B = 0
+	#endif // End SK6812 WS2812B case differentiation
+	    }
+	    NeoPixel_led_render(); // Ghi dữ liệu mới vào LED
+		HAL_Delay(200);
+}
+
+void NeoPixel_toggleLed(){
+	if(NeoPixel_status == 0){
+		 NeoPixel_clear_all_led();
+	}
+	else{
+		 NeoPixel_hslColor(120, 255, 127);
+		 NeoPixel_led_set_all_RGB();
+	}
+	NeoPixel_status =  !NeoPixel_status;
+}
 // Set a single color (RGB) to index
 void NeoPixel_led_set_RGB(uint8_t index) {
 	r = (NeoPixel_RGB_Color >> 16) & 0xFF;
@@ -60,7 +87,10 @@ void NeoPixel_led_set_RGB(uint8_t index) {
 
 // Set all colors to RGB
 void NeoPixel_led_set_all_RGB() {
-  for(uint_fast8_t i = 0; i < NUM_PIXELS; ++i) NeoPixel_led_set_RGB(i);
+  for(uint_fast8_t i = 0; i < NUM_PIXELS; ++i) {
+	  NeoPixel_led_set_RGB(i);
+  }
+	NeoPixel_led_render();
 }
 
 // Shuttle the data to the LEDs!
