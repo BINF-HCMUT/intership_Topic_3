@@ -1,0 +1,12 @@
+i2c-lcd.c:13:6:LCD_scanI2CAddresses	32	static
+i2c-lcd.c:22:6:LCD_isConnected	16	static
+i2c-lcd.c:29:6:LCD_Set_Backlight	16	static
+i2c-lcd.c:37:6:LCD_Send_CMD	32	static
+i2c-lcd.c:50:6:LCD_Send_Data	32	static
+i2c-lcd.c:64:6:LCD_Clear	8	static
+i2c-lcd.c:69:6:LCD_Set_Cursor	16	static
+i2c-lcd.c:83:6:LCD_init	8	static
+i2c-lcd.c:109:6:LCD_Send_String	16	static
+i2c-lcd.c:113:6:LCD_Send_Number	24	static
+i2c-lcd.c:119:6:LCD_Display_Temp	40	static
+i2c-lcd.c:127:6:LCD_Display_Humid	40	static

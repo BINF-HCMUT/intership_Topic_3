@@ -32,12 +32,12 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim2;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -58,10 +58,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LedRed_Pin GPIO_PIN_5
-#define LedRed_GPIO_Port GPIOA
+#define LED_Pin GPIO_PIN_5
+#define LED_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
-
+void Set_Delay(uint16_t time);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

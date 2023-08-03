@@ -5,6 +5,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/DHT.c \
+../Core/Src/DHT20_FSM.c \
+../Core/Src/PWM.c \
+../Core/Src/RGB_LED.c \
+../Core/Src/fan.c \
+../Core/Src/global.c \
+../Core/Src/gpio.c \
+../Core/Src/i2c-lcd.c \
+../Core/Src/i2c.c \
 ../Core/Src/main.c \
 ../Core/Src/scheduler.c \
 ../Core/Src/software_timer.c \
@@ -12,9 +21,20 @@ C_SRCS += \
 ../Core/Src/stm32f1xx_it.c \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
-../Core/Src/system_stm32f1xx.c 
+../Core/Src/system_stm32f1xx.c \
+../Core/Src/tim.c \
+../Core/Src/usart.c 
 
 OBJS += \
+./Core/Src/DHT.o \
+./Core/Src/DHT20_FSM.o \
+./Core/Src/PWM.o \
+./Core/Src/RGB_LED.o \
+./Core/Src/fan.o \
+./Core/Src/global.o \
+./Core/Src/gpio.o \
+./Core/Src/i2c-lcd.o \
+./Core/Src/i2c.o \
 ./Core/Src/main.o \
 ./Core/Src/scheduler.o \
 ./Core/Src/software_timer.o \
@@ -22,9 +42,20 @@ OBJS += \
 ./Core/Src/stm32f1xx_it.o \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
-./Core/Src/system_stm32f1xx.o 
+./Core/Src/system_stm32f1xx.o \
+./Core/Src/tim.o \
+./Core/Src/usart.o 
 
 C_DEPS += \
+./Core/Src/DHT.d \
+./Core/Src/DHT20_FSM.d \
+./Core/Src/PWM.d \
+./Core/Src/RGB_LED.d \
+./Core/Src/fan.d \
+./Core/Src/global.d \
+./Core/Src/gpio.d \
+./Core/Src/i2c-lcd.d \
+./Core/Src/i2c.d \
 ./Core/Src/main.d \
 ./Core/Src/scheduler.d \
 ./Core/Src/software_timer.d \
@@ -32,7 +63,9 @@ C_DEPS += \
 ./Core/Src/stm32f1xx_it.d \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
-./Core/Src/system_stm32f1xx.d 
+./Core/Src/system_stm32f1xx.d \
+./Core/Src/tim.d \
+./Core/Src/usart.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

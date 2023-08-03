@@ -20,10 +20,18 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- ../Core/Inc/software_timer.h ../Core/Inc/scheduler.h
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
+ ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/global.h \
+ ../Core/Inc/software_timer.h ../Core/Inc/i2c-lcd.h ../Core/Inc/i2c.h \
+ ../Core/Inc/usart.h ../Core/Inc/fan.h ../Core/Inc/DHT.h \
+ ../Core/Inc/gpio.h ../Core/Inc/software_timer.h ../Core/Inc/scheduler.h \
+ ../Core/Inc/i2c-lcd.h ../Core/Inc/RGB_LED.h ../Core/Inc/DHT.h \
+ ../Core/Inc/fan.h ../Core/Inc/PWM.h ../Core/Inc/DHT20_FSM.h
 
 ../Core/Inc/main.h:
 
@@ -69,12 +77,54 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h:
 
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h:
+
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
+
+../Core/Inc/i2c.h:
+
+../Core/Inc/main.h:
+
+../Core/Inc/tim.h:
+
+../Core/Inc/usart.h:
+
+../Core/Inc/gpio.h:
+
+../Core/Inc/global.h:
+
+../Core/Inc/software_timer.h:
+
+../Core/Inc/i2c-lcd.h:
+
+../Core/Inc/i2c.h:
+
+../Core/Inc/usart.h:
+
+../Core/Inc/fan.h:
+
+../Core/Inc/DHT.h:
+
+../Core/Inc/gpio.h:
+
 ../Core/Inc/software_timer.h:
 
 ../Core/Inc/scheduler.h:
+
+../Core/Inc/i2c-lcd.h:
+
+../Core/Inc/RGB_LED.h:
+
+../Core/Inc/DHT.h:
+
+../Core/Inc/fan.h:
+
+../Core/Inc/PWM.h:
+
+../Core/Inc/DHT20_FSM.h:
