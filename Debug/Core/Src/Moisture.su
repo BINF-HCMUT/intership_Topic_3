@@ -1,0 +1,2 @@
+../Core/Src/Moisture.c:16:6:Moisture_readValue	8	static
+../Core/Src/Moisture.c:22:6:Moisture_convert	4	static

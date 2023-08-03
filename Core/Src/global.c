@@ -35,3 +35,13 @@ uint16_t GPIO_PIN[16] = {
 		0x8000
 };
 uint8_t NeoPixel_status = 0;
+uint32_t ADC_Moisture_Value = 0;
+
+TIM_TypeDef* arrayTim[Tim] = {TIM1, TIM2, TIM3, TIM4};
+uint32_t arrayChannel[CHANNEL] = { TIM_CHANNEL_1,  TIM_CHANNEL_2,  TIM_CHANNEL_3,  TIM_CHANNEL_4};
+uint8_t gpioPWMFlag1 = 0;
+uint8_t gpioPWMFlag2A = 0;
+uint8_t gpioPWMFlag2B = 0;
+uint8_t gpioPWMFlag3 = 0;
+uint8_t gpioPWMFlag4 = 0;
+GPIO_InitTypeDef GPIO_PWM_InitStruct[4] = {0};

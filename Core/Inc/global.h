@@ -13,6 +13,8 @@
 #define MAX_LED 4
 #define USE_BRIGHTNESS 1
 #define PI 3.14159265
+#define Tim	4
+#define CHANNEL 4
 
 #define PWM_DMA_STREAM  DMA1_Channel2
 
@@ -33,4 +35,18 @@ extern uint8_t NeoPixel_status;
 
 //gpio config
 extern uint16_t GPIO_PIN[16];
+
+//Moisture
+extern uint32_t ADC_Moisture_Value;
+
+//pwm config
+extern TIM_TypeDef* arrayTim[Tim];
+extern uint32_t arrayChannel[CHANNEL];
+extern uint8_t gpioPWMFlag1;
+extern uint8_t gpioPWMFlag2A;
+extern uint8_t gpioPWMFlag2B;
+extern uint8_t gpioPWMFlag3;
+extern uint8_t gpioPWMFlag4;
+extern GPIO_InitTypeDef GPIO_PWM_InitStruct[4];
+
 #endif /* INC_GLOBAL_H_ */

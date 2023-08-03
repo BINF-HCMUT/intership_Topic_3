@@ -4,6 +4,6 @@
 ../Core/Src/button.c:55:6:get1sFlag	16	static
 ../Core/Src/button.c:60:6:fsm_input_processing	16	static
 ../Core/Src/button.c:112:6:button_reading	24	static
-../Core/Src/button.c:137:5:is_button_pressed	16	static
-../Core/Src/button.c:146:5:is_long_pressed	16	static
-../Core/Src/button.c:154:5:is_1s	16	static
+../Core/Src/button.c:139:5:is_button_pressed	16	static
+../Core/Src/button.c:148:5:is_long_pressed	16	static
+../Core/Src/button.c:156:5:is_1s	16	static

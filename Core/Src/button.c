@@ -134,6 +134,8 @@ void button_reading(void){
 
 	}
 }
+
+
 int is_button_pressed(uint8_t index){
 	if(index >= N0_OF_BUTTONS) return 0;
 	if(button_flag[index] == 1){
