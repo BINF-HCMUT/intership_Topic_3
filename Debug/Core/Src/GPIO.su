@@ -1,4 +1,1 @@
-../Core/Src/GPIO.c:16:6:ledMode	32	static
-../Core/Src/GPIO.c:40:6:ledStatus	16	static
-../Core/Src/GPIO.c:46:7:buttonMode	32	static
-../Core/Src/GPIO.c:83:6:pwmMode	104	static
+../Core/Src/GPIO.c:42:6:MX_GPIO_Init	40	static

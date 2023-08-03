@@ -1,0 +1,6 @@
+../Core/Src/config.c:16:6:ledMode	32	static
+../Core/Src/config.c:40:6:ledStatus	16	static
+../Core/Src/config.c:46:7:buttonMode	32	static
+../Core/Src/config.c:83:6:pwmMode	104	static
+../Core/Src/config.c:372:6:ADC_MspInit	40	static
+../Core/Src/config.c:395:6:ADC_Config	32	static

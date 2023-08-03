@@ -31,7 +31,7 @@
 #include "button.h"
 #include "stm32f1xx_hal_tim.h"
 #include "newRGB.h"
-#include "GPIO.h"
+#include "config.h"
 #include "Moisture.h"
 /* USER CODE END Includes */
 
@@ -162,26 +162,27 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-  MX_ADC1_Init();
+//  MX_ADC1_Init();
   MX_I2C1_Init();
   MX_TIM1_Init();
-  MX_TIM4_Init();
-  MX_TIM3_Init();
+//  MX_TIM4_Init();
+//  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   pwmMode(&htim3, 3, 1, 0, 89);
   pwmMode(&htim3, 3, 2, 0, 89);
   pwmMode(&htim4, 4, 1, 0, 89);
   pwmMode(&htim4, 4, 2, 0, 89);
+  ADC_Config(&hadc1, 7);
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim1);
 //  HAL_TIM_Base_Start_IT(&htim3);
-  HAL_TIM_Base_Start_IT(&htim4);
+//  HAL_TIM_Base_Start_IT(&htim4);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
 //  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 //  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 //  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
-  HAL_ADC_Start(&hadc1);
+//  HAL_ADC_Start(&hadc1);
   SCH_Init();
 //  SCH_Add_Task(func4, 100, 100);
 //  SCH_Add_Task(func5, 100, 100);
@@ -189,10 +190,13 @@ int main(void)
 //  ledMode(GPIOA, 9);
 //  setTimer1(500);
 //  uint8_t status = 1;
-//  DHT20_Read();
-//  lcdInit();
-//  lcdSetCursor(1, 1);
-//  lcdSendNumber(DHT20_getHumidity());
+  DHT20_Read();
+  lcdInit();
+  lcdSetCursor(1, 1);
+  lcdSendNumber(DHT20_getHumidity());
+  HAL_Delay(10);
+  lcdSetCursor(0, 1);
+  lcdSendNumber(DHT20_getTemperature());
 //  HAL_Delay(1000);
 //  lcdClear();
 //    NeoPixel_hslColor(120, 255, 127);
@@ -230,26 +234,25 @@ int main(void)
 //      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
 //    	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 //      }
-      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
-      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
+//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
+//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 100);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 100);
-      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
-      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
+//      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
+//      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
 
 //      HAL_Delay(5000);
 //      deleteGPIO(3, 1);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 100);
-//      Moisture_readValue();
-//      Moisture_readValue();
-//      if(ADC_Moisture_Value >= 30){
-//    	  ledStatus(GPIOA, 10, high);
-////    	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
-//      }
-//      else{
-//    	  ledStatus(GPIOA, 10, low);
-//      }
+      Moisture_readValue();
+      if(ADC_Moisture_Value >= 20){
+    	  ledStatus(GPIOA, 10, high);
+//    	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
+      }
+      else{
+    	  ledStatus(GPIOA, 10, low);
+      }
 //      if(timer1_flag == 1){
 //    	  setTimer1(500);
 //    	  ledStatus(GPIOA, 4, status);
@@ -563,7 +566,7 @@ static void MX_TIM3_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
   /* USER CODE BEGIN TIM3_Init 1 */
-//
+
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 0;

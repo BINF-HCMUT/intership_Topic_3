@@ -45,3 +45,15 @@ uint8_t gpioPWMFlag2B = 0;
 uint8_t gpioPWMFlag3 = 0;
 uint8_t gpioPWMFlag4 = 0;
 GPIO_InitTypeDef GPIO_PWM_InitStruct[4] = {0};
+
+//ADC_Config
+uint32_t adcSamplingTime[NUM_OF_SAMPLINGTIME] = {
+		0x00000000,
+		0x00000001,
+		0x00000002,
+		0x00000003,
+		0x00000004,
+		0x00000005,
+		0x00000006,
+		0x00000007,
+};

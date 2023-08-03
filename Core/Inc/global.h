@@ -15,6 +15,7 @@
 #define PI 3.14159265
 #define Tim	4
 #define CHANNEL 4
+#define NUM_OF_SAMPLINGTIME 8
 
 #define PWM_DMA_STREAM  DMA1_Channel2
 
@@ -48,5 +49,7 @@ extern uint8_t gpioPWMFlag2B;
 extern uint8_t gpioPWMFlag3;
 extern uint8_t gpioPWMFlag4;
 extern GPIO_InitTypeDef GPIO_PWM_InitStruct[4];
+//adc config
+extern uint32_t adcSamplingTime[NUM_OF_SAMPLINGTIME];
 
 #endif /* INC_GLOBAL_H_ */
