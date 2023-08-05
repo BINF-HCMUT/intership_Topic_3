@@ -57,3 +57,6 @@ uint32_t adcSamplingTime[NUM_OF_SAMPLINGTIME] = {
 		0x00000006,
 		0x00000007,
 };
+
+//fsm led rgb
+int neopixelStatus = 0;

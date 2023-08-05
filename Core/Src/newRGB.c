@@ -9,6 +9,8 @@
 #include "global.h"
 #include "math.h"
 #include "stm32f1xx_hal.h"
+#include "main.h"
+
 extern TIM_HandleTypeDef htim1;
 extern DMA_HandleTypeDef hdma_tim1_ch1;
 extern UART_HandleTypeDef huart2;

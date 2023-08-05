@@ -33,6 +33,7 @@
 #include "newRGB.h"
 #include "config.h"
 #include "Moisture.h"
+#include "fsmLedRgb.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,7 +60,6 @@ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
 DMA_HandleTypeDef hdma_tim1_ch1;
-DMA_HandleTypeDef hdma_tim4_ch1;
 
 UART_HandleTypeDef huart2;
 
@@ -75,9 +75,9 @@ static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_TIM1_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 void		SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -102,20 +102,20 @@ void func2(){
 void func3(){
 	HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 }
-void func4(){
-    if(is_button_pressed(0) == 1){
-  	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-    }
-}
-void func5(){
-	if(is_button_pressed(0) == 1){
-		  NeoPixel_clear_all_led();
-	}
-	else{
-		  NeoPixel_hslColor(120, 255, 127);
-		  NeoPixel_led_set_all_RGB();
-	}
-}
+//void func4(){
+//    if(is_button_pressed(0) == 1){
+//  	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+//    }
+//}
+//void func5(){
+//	if(is_button_pressed(0) == 1){
+//		  NeoPixel_clear_all_led();
+//	}
+//	else{
+//		  NeoPixel_hslColor(120, 255, 127);
+//		  NeoPixel_led_set_all_RGB();
+//	}
+//}
 
 uint8_t buffer[MAX_BUFFER_SIZE];
 
@@ -162,23 +162,25 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-//  MX_ADC1_Init();
+  MX_ADC1_Init();
   MX_I2C1_Init();
-  MX_TIM1_Init();
-//  MX_TIM4_Init();
-//  MX_TIM3_Init();
+  MX_TIM4_Init();
+  MX_TIM3_Init();
+//  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  pwmMode(&htim3, 3, 1, 0, 89);
-  pwmMode(&htim3, 3, 2, 0, 89);
-  pwmMode(&htim4, 4, 1, 0, 89);
-  pwmMode(&htim4, 4, 2, 0, 89);
+  pwmMode(&htim3, 3, 1, 0, 89, 0);
+  pwmMode(&htim3, 3, 2, 0, 89, 0);
+  pwmMode(&htim4, 4, 1, 0, 89, 0);
+  pwmMode(&htim4, 4, 2, 0, 89, 0);
+  pwmMode(&htim1, 1, 1, 0, 89, 1);
+
   ADC_Config(&hadc1, 7);
   HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_Base_Start_IT(&htim1);
+//  HAL_TIM_Base_Start_IT(&htim1);
 //  HAL_TIM_Base_Start_IT(&htim3);
 //  HAL_TIM_Base_Start_IT(&htim4);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
-  HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
+//  HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
 //  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 //  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 //  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
@@ -197,38 +199,26 @@ int main(void)
   HAL_Delay(10);
   lcdSetCursor(0, 1);
   lcdSendNumber(DHT20_getTemperature());
-//  HAL_Delay(1000);
 //  lcdClear();
-//    NeoPixel_hslColor(120, 255, 127);
-//    NeoPixel_led_set_RGB(0);
 //     testBuzzer();
   NeoPixel_status = 0;
-  buttonMode(GPIOA, 9);
-  ledMode(GPIOA, 10);
+  neopixelStatus = neopixelInit;
+	NeoPixel_clear_all_led();
+	HAL_Delay(10);
+//  buttonMode(GPIOA, 9);
+//  ledMode(GPIOA, 10);
   uint8_t high = 0;
   uint8_t low = 1;
-//  HAL_Delay(2000);
-//  deleteGPIO(3, 1);
-//  HAL_Delay(500);
+  uint8_t angle = 0;
+  const uint8_t angle_difference = 11;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	  NeoPixel_hslColor(120, 255, 127);
-//	  NeoPixel_led_set_all_RGB();
-//	  HAL_Delay(5000);
-//	  NeoPixel_clear_all_led();
-//	  HAL_Delay(5000);
-//	  NeoPixel_hslColor(120, 255, 127);
-//	  NeoPixel_led_set_all_RGB();
-//	  HAL_Delay(5000);
-//	  NeoPixel_hslColor(0, 255, 127);
-//	  NeoPixel_led_set_all_RGB();
-//	  NeoPixel_clear_all_led();
-//	  HAL_Delay(5000);
-//	  NeoPixel_clear_all_led();
+//	  NeoPixel_set_led_cycle();
+	  fsmNeopixelRgbLed();
 //	  NeoPixel_set_led_cycle();
       SCH_Dispatch_Tasks();
 //      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
@@ -245,14 +235,14 @@ int main(void)
 //      deleteGPIO(3, 1);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 100);
-      Moisture_readValue();
-      if(ADC_Moisture_Value >= 20){
-    	  ledStatus(GPIOA, 10, high);
-//    	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
-      }
-      else{
-    	  ledStatus(GPIOA, 10, low);
-      }
+//      Moisture_readValue();
+//      if(ADC_Moisture_Value >= 20){
+//    	  ledStatus(GPIOA, 10, high);
+////    	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
+//      }
+//      else{
+//    	  ledStatus(GPIOA, 10, low);
+//      }
 //      if(timer1_flag == 1){
 //    	  setTimer1(500);
 //    	  ledStatus(GPIOA, 4, status);
@@ -270,6 +260,11 @@ int main(void)
 //      HAL_Delay(4000);
 //  	if(is_button_pressed(0) == 1){
 //  		NeoPixel_toggleLed();
+//  			NeoPixel_set_led_cycle();
+//  		NeoPixel_hslColor(120, 255, 127);
+////  		NeoPixel_led_set_all_RGB();
+//  		NeoPixel_led_set_RGB(0);
+//  		NeoPixel_led_render();
 //  	}
 
     /* USER CODE END WHILE */
@@ -418,6 +413,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 0 */
 
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
@@ -428,10 +424,19 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 90-1;
+  htim1.Init.Period = 89;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
   if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
   {
     Error_Handler();
@@ -450,18 +455,6 @@ static void MX_TIM1_Init(void)
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
   }
@@ -697,9 +690,6 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA1_Channel1_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
   /* DMA1_Channel2_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);

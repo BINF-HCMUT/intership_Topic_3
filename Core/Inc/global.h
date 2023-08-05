@@ -23,6 +23,12 @@
 #define PWM_TIMER       TIM1
 #define PWM_CHANNEL     TIM_CHANNEL_2
 
+//define status for fsmNeopixelRgbLed
+#define neopixelInit		0
+#define neopixelSingleLed 	1
+#define neopixelAllLed		2
+#define neopixelCycleLed 	3
+
 extern uint8_t temp;
 extern uint8_t index_buffer;
 extern uint8_t buffer_flag;
@@ -51,5 +57,8 @@ extern uint8_t gpioPWMFlag4;
 extern GPIO_InitTypeDef GPIO_PWM_InitStruct[4];
 //adc config
 extern uint32_t adcSamplingTime[NUM_OF_SAMPLINGTIME];
+
+//fsm led RGB
+extern int neopixelStatus;
 
 #endif /* INC_GLOBAL_H_ */

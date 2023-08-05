@@ -4,6 +4,7 @@
 "./Core/Src/RGB.o"
 "./Core/Src/button.o"
 "./Core/Src/config.o"
+"./Core/Src/fsmLedRgb.o"
 "./Core/Src/global.o"
 "./Core/Src/main.o"
 "./Core/Src/newRGB.o"
