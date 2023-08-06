@@ -196,6 +196,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  //branch newTestDMA
 //	  fsmNeopixelRgbLed();
 	  NeoPixel_set_led_cycle();
       SCH_Dispatch_Tasks();
