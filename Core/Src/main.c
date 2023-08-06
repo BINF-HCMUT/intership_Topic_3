@@ -116,7 +116,6 @@ void func3(){
 //		  NeoPixel_led_set_all_RGB();
 //	}
 //}
-
 uint8_t buffer[MAX_BUFFER_SIZE];
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
@@ -166,7 +165,7 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM4_Init();
   MX_TIM3_Init();
-//  MX_TIM1_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   pwmMode(&htim3, 3, 1, 0, 89, 0);
   pwmMode(&htim3, 3, 2, 0, 89, 0);
@@ -176,22 +175,8 @@ int main(void)
 
   ADC_Config(&hadc1, 7);
   HAL_TIM_Base_Start_IT(&htim2);
-//  HAL_TIM_Base_Start_IT(&htim1);
-//  HAL_TIM_Base_Start_IT(&htim3);
-//  HAL_TIM_Base_Start_IT(&htim4);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
-//  HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
-//  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
-//  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-//  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
-//  HAL_ADC_Start(&hadc1);
   SCH_Init();
-//  SCH_Add_Task(func4, 100, 100);
-//  SCH_Add_Task(func5, 100, 100);
-//  ledMode(GPIOA, 4);
-//  ledMode(GPIOA, 9);
-//  setTimer1(500);
-//  uint8_t status = 1;
   DHT20_Read();
   lcdInit();
   lcdSetCursor(1, 1);
@@ -199,42 +184,31 @@ int main(void)
   HAL_Delay(10);
   lcdSetCursor(0, 1);
   lcdSendNumber(DHT20_getTemperature());
-//  lcdClear();
-//     testBuzzer();
   NeoPixel_status = 0;
   neopixelStatus = neopixelInit;
 	NeoPixel_clear_all_led();
 	HAL_Delay(10);
-//  buttonMode(GPIOA, 9);
-//  ledMode(GPIOA, 10);
   uint8_t high = 0;
   uint8_t low = 1;
-  uint8_t angle = 0;
-  const uint8_t angle_difference = 11;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	  NeoPixel_set_led_cycle();
-	  fsmNeopixelRgbLed();
-//	  NeoPixel_set_led_cycle();
+//	  fsmNeopixelRgbLed();
+	  NeoPixel_set_led_cycle();
       SCH_Dispatch_Tasks();
 //      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
 //    	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 //      }
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
+       __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
+       __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 100);
 //      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 100);
-//      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
-//      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
+      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
+      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
 
-//      HAL_Delay(5000);
-//      deleteGPIO(3, 1);
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 100);
 //      Moisture_readValue();
 //      if(ADC_Moisture_Value >= 20){
 //    	  ledStatus(GPIOA, 10, high);
@@ -528,14 +502,6 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
-  {
-    Error_Handler();
-  }
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
@@ -602,7 +568,6 @@ static void MX_TIM4_Init(void)
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
-  TIM_OC_InitTypeDef sConfigOC = {0};
 
   /* USER CODE BEGIN TIM4_Init 1 */
 
@@ -622,28 +587,15 @@ static void MX_TIM4_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_TIM_PWM_Init(&htim4) != HAL_OK)
-  {
-    Error_Handler();
-  }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
   /* USER CODE BEGIN TIM4_Init 2 */
 
   /* USER CODE END TIM4_Init 2 */
-  HAL_TIM_MspPostInit(&htim4);
 
 }
 
@@ -712,7 +664,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -720,8 +672,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin PA10 */
+  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
