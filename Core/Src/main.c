@@ -73,11 +73,11 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM1_Init(void);
-static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
 void		SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -92,6 +92,21 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void func1(){
+	fsmNeopixelRgbLed();
+}
+void func2(){
+	 Moisture_readValue();
+}
+void func3(){
+	HAL_ADC_ConvCpltCallback(&hadc1);
+}
+//void func4(){
+//    if(is_button_pressed(0) == 1){
+//  	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+//    }
+//}
 
 //void func4(){
 //    if(is_button_pressed(0) == 1){
@@ -118,7 +133,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Receive_IT(&huart2, & temp, 1);
 	}
 }
-
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
+	HAL_ADC_Stop(&hadc1);
+}
 
 /* USER CODE END 0 */
 
@@ -152,11 +169,11 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
+//  MX_ADC1_Init();
   MX_I2C1_Init();
-  MX_TIM4_Init();
-  MX_TIM3_Init();
+//  MX_TIM4_Init();
+//  MX_TIM3_Init();
   MX_TIM1_Init();
-  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   pwmMode(&htim3, 3, 1, 0, 89);
   pwmMode(&htim3, 3, 2, 0, 89);
@@ -169,6 +186,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   SCH_Init();
+  SCH_Add_Task(func1, 223, 20);
+  SCH_Add_Task(func2, 25, 4000);
   DHT20_Read();
   lcdInit();
   lcdSetCursor(1, 1);
@@ -191,7 +210,7 @@ int main(void)
   {
 	  //branch newTestDMA
 //	  fsmNeopixelRgbLed();
-	  NeoPixel_set_led_cycle();
+//	  NeoPixel_set_led_cycle();
       SCH_Dispatch_Tasks();
 //      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
 //    	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
@@ -200,14 +219,14 @@ int main(void)
        __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
        __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
        __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
-
-      Moisture_readValue();
-      if(ADC_Moisture_Value >= 20){
-    	  ledStatus(GPIOA, 10, high);
-      }
-      else{
-    	  ledStatus(GPIOA, 10, low);
-      }
+//
+//        Moisture_readValue();
+//      if(ADC_Moisture_Value >= 20){
+//    	  ledStatus(GPIOA, 10, high);
+//      }
+//      else{
+//    	  ledStatus(GPIOA, 10, low);
+//      }
 //      if(timer1_flag == 1){
 //    	  setTimer1(500);
 //    	  ledStatus(GPIOA, 4, status);
@@ -310,7 +329,7 @@ static void MX_ADC1_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_10;
+  sConfig.Channel = ADC_CHANNEL_13;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)

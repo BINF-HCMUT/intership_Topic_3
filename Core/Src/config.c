@@ -234,7 +234,7 @@ void ADC_MspInit(ADC_HandleTypeDef* hadc)
     /* ADC1 clock enable */
     __HAL_RCC_ADC1_CLK_ENABLE();
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
+//    __HAL_RCC_GPIOA_CLK_ENABLE();
     /**ADC1 GPIO Configuration
     PA0-WKUP     ------> ADC1_IN0
     PA1     ------> ADC1_IN1
