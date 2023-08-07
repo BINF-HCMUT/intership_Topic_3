@@ -102,6 +102,12 @@ void func2(){
 void func3(){
 	HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 }
+void func4(){
+	Moisture_readValue();
+}
+void func5(){
+	fsmNeopixelRgbLed();
+}
 //void func4(){
 //    if(is_button_pressed(0) == 1){
 //  	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
@@ -158,21 +164,18 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
+//  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
-  MX_TIM4_Init();
-  MX_TIM3_Init();
-  MX_TIM1_Init();
+//  MX_TIM4_Init();
+//  MX_TIM3_Init();
+//  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  pwmMode(&htim3, 3, 1, 0, 89, 0);
-  pwmMode(&htim3, 3, 2, 0, 89, 0);
-  pwmMode(&htim4, 4, 1, 0, 89, 0);
-  pwmMode(&htim4, 4, 2, 0, 89, 0);
   pwmMode(&htim1, 1, 1, 0, 89, 1);
-
+  pwmMode(&htim3, 3, 1, 0, 89, 0);
+  pwmMode(&htim4, 4, 1, 0, 89, 1);
   ADC_Config(&hadc1, 7);
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
@@ -190,34 +193,24 @@ int main(void)
 	HAL_Delay(10);
   uint8_t high = 0;
   uint8_t low = 1;
+//  SCH_Add_Task(func4, 500, 5000);
+//  SCH_Add_Task(func5, 100, 100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //branch newTestDMA
 //	  fsmNeopixelRgbLed();
-	  NeoPixel_set_led_cycle();
+//	  NeoPixel_set_led_cycle();
+//	  HAL_Delay(1000);
+//	  Moisture_readValue();
+	  fsmNeopixelRgbLed();
       SCH_Dispatch_Tasks();
 //      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
 //    	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 //      }
-       __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
-       __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 100);
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 100);
-      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
-      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
 
-//      Moisture_readValue();
-//      if(ADC_Moisture_Value >= 20){
-//    	  ledStatus(GPIOA, 10, high);
-////    	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
-//      }
-//      else{
-//    	  ledStatus(GPIOA, 10, low);
-//      }
 //      if(timer1_flag == 1){
 //    	  setTimer1(500);
 //    	  ledStatus(GPIOA, 4, status);
@@ -229,18 +222,9 @@ int main(void)
 //        __HAL_TIM_SetCompare(&htim1,TIM_CHANNEL_1,i);
 //        HAL_Delay(1000);
 //       }
-//      __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_2, 100);
-//      __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1, 100);
+      __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_3, 100);
+      __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1, 100);
 
-//      HAL_Delay(4000);
-//  	if(is_button_pressed(0) == 1){
-//  		NeoPixel_toggleLed();
-//  			NeoPixel_set_led_cycle();
-//  		NeoPixel_hslColor(120, 255, 127);
-////  		NeoPixel_led_set_all_RGB();
-//  		NeoPixel_led_set_RGB(0);
-//  		NeoPixel_led_render();
-//  	}
 
     /* USER CODE END WHILE */
 
