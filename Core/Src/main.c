@@ -73,11 +73,11 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
-static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM1_Init(void);
+static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
 void		SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -93,15 +93,6 @@ static void MX_USART2_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void func1(){
-	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-}
-void func2(){
-	HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-}
-void func3(){
-	HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-}
 //void func4(){
 //    if(is_button_pressed(0) == 1){
 //  	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
@@ -161,20 +152,21 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-  MX_ADC1_Init();
   MX_I2C1_Init();
   MX_TIM4_Init();
   MX_TIM3_Init();
   MX_TIM1_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-  pwmMode(&htim3, 3, 1, 0, 89, 0);
-  pwmMode(&htim3, 3, 2, 0, 89, 0);
-  pwmMode(&htim4, 4, 1, 0, 89, 0);
-  pwmMode(&htim4, 4, 2, 0, 89, 0);
-  pwmMode(&htim1, 1, 1, 0, 89, 1);
+  pwmMode(&htim3, 3, 1, 0, 89);
+  pwmMode(&htim3, 3, 2, 0, 89);
+  pwmMode(&htim4, 4, 1, 0, 89);
+  pwmMode(&htim4, 4, 2, 0, 89);
 
   ADC_Config(&hadc1, 7);
   HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_Base_Start_IT(&htim1);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   SCH_Init();
   DHT20_Read();
@@ -190,6 +182,7 @@ int main(void)
 	HAL_Delay(10);
   uint8_t high = 0;
   uint8_t low = 1;
+  ledMode(GPIOA, 10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -205,34 +198,22 @@ int main(void)
 //      }
        __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
        __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 100);
-//      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 100);
-      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
-      __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
+       __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
+       __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
 
-//      Moisture_readValue();
-//      if(ADC_Moisture_Value >= 20){
-//    	  ledStatus(GPIOA, 10, high);
-////    	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_10);
-//      }
-//      else{
-//    	  ledStatus(GPIOA, 10, low);
-//      }
+      Moisture_readValue();
+      if(ADC_Moisture_Value >= 20){
+    	  ledStatus(GPIOA, 10, high);
+      }
+      else{
+    	  ledStatus(GPIOA, 10, low);
+      }
 //      if(timer1_flag == 1){
 //    	  setTimer1(500);
 //    	  ledStatus(GPIOA, 4, status);
 //    	  ledStatus(GPIOA, 9, status);
 //    	  status = !status;
 //      }
-//      for(int i=0;i<100;i=i+5)
-//      {
-//        __HAL_TIM_SetCompare(&htim1,TIM_CHANNEL_1,i);
-//        HAL_Delay(1000);
-//       }
-//      __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_2, 100);
-//      __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1, 100);
-
-//      HAL_Delay(4000);
 //  	if(is_button_pressed(0) == 1){
 //  		NeoPixel_toggleLed();
 //  			NeoPixel_set_led_cycle();
@@ -317,7 +298,7 @@ static void MX_ADC1_Init(void)
   */
   hadc1.Instance = ADC1;
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -329,9 +310,9 @@ static void MX_ADC1_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_0;
+  sConfig.Channel = ADC_CHANNEL_10;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
