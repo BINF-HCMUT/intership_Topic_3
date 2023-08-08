@@ -1,0 +1,11 @@
+newRGB.c:41:23:scale8	16	static
+newRGB.c:45:6:NeoPixel_clear_all_led	16	static
+newRGB.c:62:6:NeoPixel_toggleLed	8	static
+newRGB.c:73:6:NeoPixel_led_set_RGB	24	static
+newRGB.c:90:6:NeoPixel_led_set_all_RGB	16	static
+newRGB.c:98:6:NeoPixel_led_render	16	static
+newRGB.c:140:6:HAL_TIM_PWM_PulseFinishedHalfCpltCallback	24	static
+newRGB.c:168:6:HAL_TIM_PWM_PulseFinishedCallback	24	static
+newRGB.c:198:6:NeoPixel_set_led_cycle	16	static
+newRGB.c:208:7:NeoPixel_hslColor	16	static
+newRGB.c:211:6:NeoPixel_hsl_to_rgb	32	static

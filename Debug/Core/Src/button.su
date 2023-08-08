@@ -1,0 +1,9 @@
+button.c:39:6:getKeyProcess	16	static
+button.c:45:6:get3sFlag	16	static
+button.c:50:6:clear3sFlag	16	static
+button.c:55:6:get1sFlag	16	static
+button.c:60:6:fsm_input_processing	16	static
+button.c:112:6:button_reading	24	static
+button.c:139:5:is_button_pressed	16	static
+button.c:148:5:is_long_pressed	16	static
+button.c:156:5:is_1s	16	static

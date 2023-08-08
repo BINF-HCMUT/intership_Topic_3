@@ -10,7 +10,7 @@
 
 #include "main.h"
 extern TIM_HandleTypeDef htim1;
-void checkTemp(float temp);
+
 void setFan(uint8_t dutyCycle);
 void resetFan(void);
 

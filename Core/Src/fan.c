@@ -5,10 +5,6 @@
  *      Author: admin
  */
 #include"fan.h"
-void checkTemp(float temp){
-	if(temp > 25.5)	setFan(100);
-	else resetFan();
-}
 
 void setFan(uint8_t dutyCycle){
     // Giới hạn giá trị duty cycle từ 0 đến 100

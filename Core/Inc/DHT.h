@@ -7,10 +7,12 @@
 
 #ifndef INC_DHT_H_
 #define INC_DHT_H_
+#include "stdio.h"
 #include"gpio.h"
 #include"main.h"
-#include"i2c-lcd.h"
 
+#define DHT20_ADDRESS 0x38 << 1
+extern I2C_HandleTypeDef hi2c1;
 
 
 #define DHT20_OK                             0

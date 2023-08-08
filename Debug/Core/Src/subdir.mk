@@ -8,13 +8,17 @@ C_SRCS += \
 ../Core/Src/DHT.c \
 ../Core/Src/DHT20_FSM.c \
 ../Core/Src/PWM.c \
-../Core/Src/RGB_LED.c \
+../Core/Src/adc.c \
+../Core/Src/button.c \
+../Core/Src/dma.c \
 ../Core/Src/fan.c \
+../Core/Src/fsmLedRgb.c \
 ../Core/Src/global.c \
 ../Core/Src/gpio.c \
 ../Core/Src/i2c-lcd.c \
 ../Core/Src/i2c.c \
 ../Core/Src/main.c \
+../Core/Src/newRGB.c \
 ../Core/Src/scheduler.c \
 ../Core/Src/software_timer.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
@@ -22,20 +26,23 @@ C_SRCS += \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
 ../Core/Src/system_stm32f1xx.c \
-../Core/Src/tim.c \
-../Core/Src/usart.c 
+../Core/Src/tim.c 
 
 OBJS += \
 ./Core/Src/DHT.o \
 ./Core/Src/DHT20_FSM.o \
 ./Core/Src/PWM.o \
-./Core/Src/RGB_LED.o \
+./Core/Src/adc.o \
+./Core/Src/button.o \
+./Core/Src/dma.o \
 ./Core/Src/fan.o \
+./Core/Src/fsmLedRgb.o \
 ./Core/Src/global.o \
 ./Core/Src/gpio.o \
 ./Core/Src/i2c-lcd.o \
 ./Core/Src/i2c.o \
 ./Core/Src/main.o \
+./Core/Src/newRGB.o \
 ./Core/Src/scheduler.o \
 ./Core/Src/software_timer.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
@@ -43,20 +50,23 @@ OBJS += \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
 ./Core/Src/system_stm32f1xx.o \
-./Core/Src/tim.o \
-./Core/Src/usart.o 
+./Core/Src/tim.o 
 
 C_DEPS += \
 ./Core/Src/DHT.d \
 ./Core/Src/DHT20_FSM.d \
 ./Core/Src/PWM.d \
-./Core/Src/RGB_LED.d \
+./Core/Src/adc.d \
+./Core/Src/button.d \
+./Core/Src/dma.d \
 ./Core/Src/fan.d \
+./Core/Src/fsmLedRgb.d \
 ./Core/Src/global.d \
 ./Core/Src/gpio.d \
 ./Core/Src/i2c-lcd.d \
 ./Core/Src/i2c.d \
 ./Core/Src/main.d \
+./Core/Src/newRGB.d \
 ./Core/Src/scheduler.d \
 ./Core/Src/software_timer.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
@@ -64,8 +74,7 @@ C_DEPS += \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
 ./Core/Src/system_stm32f1xx.d \
-./Core/Src/tim.d \
-./Core/Src/usart.d 
+./Core/Src/tim.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

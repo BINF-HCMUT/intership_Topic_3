@@ -1,8 +1,10 @@
 #include "stm32f1xx_hal.h"
 #include "i2c.h"
 #include "math.h"
-#include "usart.h"
 
+extern I2C_HandleTypeDef hi2c1;
+#define I2C_ADDR 0x21 << 1
+#define BL_BIT 3 // Backlight bit
 
 void LCD_scanI2CAddresses();
 

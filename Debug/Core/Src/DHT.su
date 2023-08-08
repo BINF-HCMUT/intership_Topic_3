@@ -1,8 +1,8 @@
-DHT.c:19:7:DHT20_getTemp	4	static
-DHT.c:23:7:DHT20_getHumid	4	static
-DHT.c:27:6:scanI2CAddresses	16	static
-DHT.c:35:9:DHT20_isConnected	16	static
-DHT.c:41:9:DHT20_requestData	24	static
-DHT.c:47:9:DHT20_crc8	24	static
-DHT.c:68:5:DHT20_Read	24	static
-DHT.c:87:5:DHT20_Convert	16	static
+DHT.c:17:7:DHT20_getTemp	4	static
+DHT.c:21:7:DHT20_getHumid	4	static
+DHT.c:25:6:scanI2CAddresses	16	static
+DHT.c:33:9:DHT20_isConnected	16	static
+DHT.c:39:9:DHT20_requestData	24	static
+DHT.c:45:9:DHT20_crc8	24	static
+DHT.c:66:5:DHT20_Convert	16	static
+DHT.c:95:5:DHT20_Read	24	static

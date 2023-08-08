@@ -60,6 +60,12 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_Pin GPIO_PIN_5
 #define LED_GPIO_Port GPIOA
+#define Button0_Pin GPIO_PIN_0
+#define Button0_GPIO_Port GPIOB
+#define Button1_Pin GPIO_PIN_1
+#define Button1_GPIO_Port GPIOB
+#define Button2_Pin GPIO_PIN_2
+#define Button2_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 void Set_Delay(uint16_t time);
 /* USER CODE END Private defines */

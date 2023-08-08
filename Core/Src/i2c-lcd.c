@@ -1,11 +1,6 @@
 #include "i2c-LCD.h"
 #include "stdio.h"
-extern I2C_HandleTypeDef hi2c1;
-extern UART_HandleTypeDef huart2;
 
-#define I2C_ADDR 0x21 << 1
-//#define I2C_ADDR 0x27 << 1
-#define BL_BIT 3 // Backlight bit
 
 //Define global variable for backlight state
 uint8_t backlight_state = 1;
@@ -14,7 +9,7 @@ void LCD_scanI2CAddresses() {
 	char str[20] = {0};
     for (uint8_t address = 0; address < 128; address++) {
         if (HAL_I2C_IsDeviceReady(&hi2c1, address, 1, 10) == HAL_OK) {
-        	HAL_UART_Transmit(&huart2 , (void *)str , sprintf(str, "!address=%02X#\r\n", address), 100);
+        	//HAL_UART_Transmit(&huart2 , (void *)str , sprintf(str, "!address=%02X#\r\n", address), 100);
         }
     }
 }
@@ -104,6 +99,8 @@ void LCD_init (void){
 	HAL_Delay(1);
 	LCD_Send_CMD(0x0C);		 //Display ON Cursor OFF
 	HAL_Delay(1);
+
+	LCD_Set_Backlight(1);
 }
 
 void LCD_Send_String (char *str){
