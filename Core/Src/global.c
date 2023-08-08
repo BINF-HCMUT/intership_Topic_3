@@ -7,6 +7,7 @@
 
 
 #include "global.h"
+uint8_t DHT20_status = 0;
 
 uint8_t temp = 0;
 uint8_t index_buffer = 0;
@@ -14,7 +15,6 @@ uint8_t buffer_flag = 0;
 uint8_t str[12] = "GOATMESSI";
 uint16_t pwmData[(24*MAX_LED)+50] = {0};
 uint8_t datasentflag;uint8_t datasentflag = 1;
-uint8_t backlight_state = 1;
 uint32_t NeoPixel_RGB_Color = 0xE7BC;
 uint16_t GPIO_PIN[16] = {
 		0x0001,

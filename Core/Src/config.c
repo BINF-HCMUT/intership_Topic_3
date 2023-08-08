@@ -12,6 +12,11 @@
 #include "stm32f1xx_hal_gpio.h"
 
 extern UART_HandleTypeDef huart2;
+extern TIM_HandleTypeDef htim3;
+
+void setFanPWM(void){
+	  pwmMode(&htim3, 3, 1, 71, 99);
+}
 
 void ledMode(GPIO_TypeDef *GPIOx, uint16_t pin ){
 	static GPIO_InitTypeDef GPIO_InitStruct = {0};

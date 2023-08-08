@@ -34,6 +34,7 @@
 #include "config.h"
 #include "Moisture.h"
 #include "fsmLedRgb.h"
+#include "DHT20_FSM.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -99,6 +100,9 @@ void func1(){
 void func2(){
 	 Moisture_readValue();
 }
+void func3(){
+	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+}
 
 //void func5(){
 //	if(is_button_pressed(0) == 1){
@@ -153,18 +157,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-//  MX_DMA_Init();
+  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-//  MX_ADC1_Init();
+  MX_ADC1_Init();
   MX_I2C1_Init();
 //  MX_TIM4_Init();
 //  MX_TIM3_Init();
-//  MX_TIM1_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  pwmMode(&htim3, 3, 1, 0, 89);
   pwmMode(&htim3, 3, 2, 0, 89);
   pwmMode(&htim4, 4, 1, 0, 89);
   pwmMode(&htim4, 4, 2, 0, 89);
@@ -173,16 +176,10 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
-  SCH_Init();
-  SCH_Add_Task(func1, 223, 20);
-  SCH_Add_Task(func2, 25, 4000);
-  DHT20_Read();
-  lcdInit();
-  lcdSetCursor(1, 1);
-  lcdSendNumber(DHT20_getHumidity());
-  HAL_Delay(10);
-  lcdSetCursor(0, 1);
-  lcdSendNumber(DHT20_getTemperature());
+//  SCH_Add_Task(func1, 223, 20);
+//  SCH_Add_Task(func2, 25, 4000);
+/*  DHT20_Read()
+
   NeoPixel_status = 0;
   neopixelStatus = neopixelInit;
 	NeoPixel_clear_all_led();
@@ -190,23 +187,32 @@ int main(void)
   uint8_t high = 0;
   uint8_t low = 1;
 
-  ledMode(GPIOA, 10);
+  ledMode(GPIOA, 10);*/
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+//   SCH_Add_Task(button_reading, 0, 10);
+   SCH_Add_Task(setFanPWM, 0, 0);
+   SCH_Add_Task(LCD_init, 0, 0);
+   SCH_Add_Task(timerRun, 0, 10);
+   SCH_Add_Task(DHT20_FSM,200,10);
+   SCH_Add_Task(func1, 100, 10);
+   //SCH_Add_Task(func2, 57, 3000);
   while (1)
-  {
-	  fsmNeopixelRgbLed();
-      SCH_Dispatch_Tasks();
+	  {
+//	  func1();
+	  SCH_Dispatch_Tasks();
+	  //	  fsmNeopixelRgbLed();
+
 //      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
 //    	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 //      }
-
+/*
        __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
        __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
        __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
-       __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);
+       __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);*/
 //
 //        Moisture_readValue();
 //      if(ADC_Moisture_Value >= 20){
@@ -291,7 +297,7 @@ static void MX_ADC1_Init(void)
   */
   hadc1.Instance = ADC1;
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -445,9 +451,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 7999;
+  htim2.Init.Prescaler = 71;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 9;
+  htim2.Init.Period = 9999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -670,11 +676,12 @@ static void MX_GPIO_Init(void)
 
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if(htim->Instance == TIM2){
+  if(htim->Instance == TIM2){
 		button_reading();
+		SCH_Update();
 	}
-	timerRun();
-	SCH_Update();
+//	timerRun();
+
 }
 
 /* USER CODE END 4 */

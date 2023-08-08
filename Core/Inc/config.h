@@ -11,6 +11,7 @@
 #include "main.h"
 #include "global.h"
 
+void setFanPWM(void);
 void ledMode(GPIO_TypeDef *GPIOx, uint16_t pin );
 void ledStatus(GPIO_TypeDef *GPIOx, uint16_t pin, uint8_t PinState);
 void buttonMode(GPIO_TypeDef *GPIOx, uint16_t pin);

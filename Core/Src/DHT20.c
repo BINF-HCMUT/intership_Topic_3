@@ -35,11 +35,11 @@ uint8_t DHT20_getAddress(){
 	return DHT20;
 }
 
-float DHT20_getHumidity (){
+float DHT20_getHumid (){
 	return (humidity + humidityOffset);
 }
 
-float DHT20_getTemperature(){
+float DHT20_getTemp(){
 	return temperature + temperatureOffset;
 }
 

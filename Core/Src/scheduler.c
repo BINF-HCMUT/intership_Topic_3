@@ -1,9 +1,10 @@
 /*
+
  * scheduler.c
  *
  *  Created on: Jun 21, 2023
  *      Author: Acer
- */
+
 
 
 #include "scheduler.h"
@@ -41,11 +42,11 @@ void SCH_Update(void){
 	        }
 	    }
 
-/* O(1)
+ O(1)
  * 	if(head != NULL){
 		head->Delay--;
 	}
- * */
+ *
 }
 
 unsigned char SCH_Add_Task(void (*pFunction)(), uint32_t DELAY, uint32_t PERIOD){
@@ -69,7 +70,7 @@ unsigned char SCH_Add_Task(void (*pFunction)(), uint32_t DELAY, uint32_t PERIOD)
 	    // return position of task (to allow later deletion)
 	    return Index;
 
-	/* O(1)
+	 O(1)
 	 * uint32_t index = 0;
 	uint8_t waiting = 0;
 	 while ((SCH_tasks_G[index].pTask != 0) && (index < SCH_MAX_TASKS)){
@@ -115,7 +116,7 @@ unsigned char SCH_Add_Task(void (*pFunction)(), uint32_t DELAY, uint32_t PERIOD)
 		 }
 	 }
 	 return index;
-	 * */
+	 *
 
 }
 void SCH_Dispatch_Tasks(void)
@@ -135,7 +136,7 @@ void SCH_Dispatch_Tasks(void)
         }
     }
 
-/*   O(1)
+   O(1)
  * 	if(head != NULL && head->Delay == 0){
 		// run task
 		(*head->pTask)();
@@ -144,7 +145,7 @@ void SCH_Dispatch_Tasks(void)
 		head = head->pNext;
 		SCH_Delete_Task(del_index);
 	}
-	*/
+
 
 }
 void SCH_Delete_Task(const unsigned char TASK_INDEX){
@@ -158,4 +159,69 @@ void SCH_Delete_Task(const unsigned char TASK_INDEX){
 	    SCH_tasks_G[TASK_INDEX].pNext = 0;
 	    SCH_tasks_G[TASK_INDEX].TaskID = 0;
 	}
+}
+*/
+
+#include "scheduler.h"
+
+uint8_t current_index_task = 0;
+sTasks SCH_tasks_G[SCH_MAX_TASKS];
+
+void Timer_init(){
+
+}
+void Watchdog_init(){
+
+}
+
+
+
+void SCH_Add_Task ( void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD){
+	if(current_index_task < SCH_MAX_TASKS){
+
+		SCH_tasks_G[current_index_task].pTask = pFunction;
+		SCH_tasks_G[current_index_task].Delay = DELAY / 10;
+		SCH_tasks_G[current_index_task].Period =  PERIOD / 10;
+		SCH_tasks_G[current_index_task].RunMe = 0;
+
+		SCH_tasks_G[current_index_task].TaskID = current_index_task;
+
+		current_index_task++;
+	}
+}
+
+void SCH_Update(void){
+	for(int i =0 ; i<current_index_task;i++){
+		if(SCH_tasks_G[i].Delay > 0){
+			SCH_tasks_G[i].Delay --;
+		}else{
+			SCH_tasks_G[i].RunMe += 1;
+			SCH_tasks_G[i].Delay = SCH_tasks_G[i].Period;
+		}
+	}
+}
+
+
+void SCH_Dispatch_Tasks(void){
+	for(uint32_t i = 0; i < current_index_task; i++){
+		if(SCH_tasks_G[i].RunMe > 0){
+			SCH_tasks_G[i].RunMe--;
+			(*SCH_tasks_G[i].pTask)();
+			if(SCH_tasks_G[i].Period == 0){
+				SCH_Delete_Tasks(i);
+			}
+		}
+	}
+}
+
+void SCH_Delete_Tasks(uint32_t index){
+	for(int i = index; i< current_index_task;i++){
+		SCH_tasks_G[i].pTask = SCH_tasks_G[i+1].pTask;
+		SCH_tasks_G[i].Delay = SCH_tasks_G[i+1].Delay;
+		SCH_tasks_G[i].Period= SCH_tasks_G[i+1].Period;
+		SCH_tasks_G[i].RunMe = SCH_tasks_G[i+1].RunMe;
+
+		SCH_tasks_G[i].TaskID = SCH_tasks_G[i+1].TaskID;
+	}
+	current_index_task--;
 }

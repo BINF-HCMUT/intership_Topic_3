@@ -1,7 +1,7 @@
 ../Core/Src/DHT20.c:28:9:DHT20_isConnected	16	static
 ../Core/Src/DHT20.c:34:9:DHT20_getAddress	4	static
-../Core/Src/DHT20.c:38:7:DHT20_getHumidity	8	static
-../Core/Src/DHT20.c:42:7:DHT20_getTemperature	8	static
+../Core/Src/DHT20.c:38:7:DHT20_getHumid	8	static
+../Core/Src/DHT20.c:42:7:DHT20_getTemp	8	static
 ../Core/Src/DHT20.c:46:6:DHT20_setHumidOffset	16	static
 ../Core/Src/DHT20.c:49:6:DHT20_setTemperatureOffset	16	static
 ../Core/Src/DHT20.c:52:7:DHT20_getHumidOffset	4	static

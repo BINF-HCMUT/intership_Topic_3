@@ -9,6 +9,15 @@
 #define INC_GLOBAL_H_
 
 #include "main.h"
+// parameter for DHT20_FSM
+#define INIT	0
+
+#define READING_STATE	11
+#define FAN_ON			12
+#define FAN_OFF			13
+extern uint8_t DHT20_status;
+
+
 #define MAX_BUFFER_SIZE 30
 #define MAX_LED 4
 #define USE_BRIGHTNESS 1
