@@ -94,22 +94,6 @@ static void MX_USART2_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void func1(){
-	fsmNeopixelRgbLed();
-}
-void func2(){
-	 Moisture_readValue();
-}
-
-//void func5(){
-//	if(is_button_pressed(0) == 1){
-//		  NeoPixel_clear_all_led();
-//	}
-//	else{
-//		  NeoPixel_hslColor(120, 255, 127);
-//		  NeoPixel_led_set_all_RGB();
-//	}
-//}
 uint8_t buffer[MAX_BUFFER_SIZE];
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
@@ -185,17 +169,8 @@ int main(void)
    SCH_Add_Task(Moisture_readValue, 56, 3000);
   while (1)
 	  {
+
 	  SCH_Dispatch_Tasks();
-//      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
-//    	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-//      }
-//        Moisture_readValue();
-//      if(ADC_Moisture_Value >= 20){
-//    	  ledStatus(GPIOA, 10, high);
-//      }
-//      else{
-//    	  ledStatus(GPIOA, 10, low);
-//      }
 
     /* USER CODE END WHILE */
 

@@ -250,15 +250,9 @@ void ADC_MspInit(ADC_HandleTypeDef* hadc)
   }
 }
 void ADC_Config(ADC_HandleTypeDef *hadc, uint8_t index){
-	 /* USER CODE BEGIN ADC1_Init 0 */
-
-	  /* USER CODE END ADC1_Init 0 */
 
 	  ADC_ChannelConfTypeDef sConfig = {0};
 
-	  /* USER CODE BEGIN ADC1_Init 1 */
-
-	  /* USER CODE END ADC1_Init 1 */
 
 	  /** Common config
 	  */
@@ -284,6 +278,5 @@ void ADC_Config(ADC_HandleTypeDef *hadc, uint8_t index){
 	    Error_Handler();
 	  }
 	  ADC_MspInit(hadc);
-//	  HAL_ADC_Start(hadc);
 }
 
