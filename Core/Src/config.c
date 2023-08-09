@@ -264,7 +264,7 @@ void ADC_Config(ADC_HandleTypeDef *hadc, uint8_t index){
 	  */
 	  hadc->Instance = ADC1;
 	  hadc->Init.ScanConvMode = ADC_SCAN_DISABLE;
-	  hadc->Init.ContinuousConvMode = ENABLE;
+	  hadc->Init.ContinuousConvMode = DISABLE ;//ENABLE;
 	  hadc->Init.DiscontinuousConvMode = DISABLE;
 	  hadc->Init.ExternalTrigConv = ADC_SOFTWARE_START;
 	  hadc->Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -284,6 +284,6 @@ void ADC_Config(ADC_HandleTypeDef *hadc, uint8_t index){
 	    Error_Handler();
 	  }
 	  ADC_MspInit(hadc);
-	  HAL_ADC_Start(hadc);
+//	  HAL_ADC_Start(hadc);
 }
 

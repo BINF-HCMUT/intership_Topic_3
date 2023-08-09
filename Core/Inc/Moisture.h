@@ -10,5 +10,6 @@
 
 void Moisture_readValue();
 void Moisture_convert();
+void Relay();
 
 #endif /* INC_MOISTURE_H_ */

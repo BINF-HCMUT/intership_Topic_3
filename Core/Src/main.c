@@ -100,9 +100,6 @@ void func1(){
 void func2(){
 	 Moisture_readValue();
 }
-void func3(){
-	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-}
 
 //void func5(){
 //	if(is_button_pressed(0) == 1){
@@ -124,10 +121,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Receive_IT(&huart2, & temp, 1);
 	}
 }
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
-	HAL_ADC_Stop(&hadc1);
-}
-
 /* USER CODE END 0 */
 
 /**
@@ -160,7 +153,7 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-  MX_ADC1_Init();
+//  MX_ADC1_Init();
   MX_I2C1_Init();
 //  MX_TIM4_Init();
 //  MX_TIM3_Init();
@@ -171,23 +164,13 @@ int main(void)
   pwmMode(&htim3, 3, 2, 0, 89);
   pwmMode(&htim4, 4, 1, 0, 89);
   pwmMode(&htim4, 4, 2, 0, 89);
-  ADC_Config(&hadc1, 7);
+  ADC_Config(&hadc1, 2);
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
-//  SCH_Add_Task(func1, 223, 20);
-//  SCH_Add_Task(func2, 25, 4000);
-/*  DHT20_Read()
 
-  NeoPixel_status = 0;
-  neopixelStatus = neopixelInit;
-	NeoPixel_clear_all_led();
-	HAL_Delay(10);
-  uint8_t high = 0;
-  uint8_t low = 1;
-
-  ledMode(GPIOA, 10);*/
+  ledMode(GPIOA, 10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -197,23 +180,15 @@ int main(void)
    SCH_Add_Task(LCD_init, 0, 0);
    SCH_Add_Task(timerRun, 0, 10);
    SCH_Add_Task(DHT20_FSM,200,10);
-   SCH_Add_Task(func1, 100, 10);
-   //SCH_Add_Task(func2, 57, 3000);
+   SCH_Add_Task(fsmNeopixelRgbLed, 100, 10);
+   SCH_Add_Task(Relay, 103, 3000);
+   SCH_Add_Task(Moisture_readValue, 56, 3000);
   while (1)
 	  {
-//	  func1();
 	  SCH_Dispatch_Tasks();
-	  //	  fsmNeopixelRgbLed();
-
 //      if( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET){
 //    	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 //      }
-/*
-       __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
-       __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
-       __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, 100);
-       __HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 50);*/
-//
 //        Moisture_readValue();
 //      if(ADC_Moisture_Value >= 20){
 //    	  ledStatus(GPIOA, 10, high);
