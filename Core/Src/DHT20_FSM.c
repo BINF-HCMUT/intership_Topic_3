@@ -17,7 +17,7 @@ void DHT20_FSM(void){
 			LCD_Clear();
 			LCD_Display_Temp(DHT20_getTemp());
 			LCD_Display_Humid(DHT20_getHumid());
-			if (DHT20_getTemp() > 26.3)	DHT20_status = FAN_ON;
+			if (DHT20_getTemp() > 30)	DHT20_status = FAN_ON;
 			else DHT20_status = FAN_OFF;
 			break;
 		case FAN_ON:

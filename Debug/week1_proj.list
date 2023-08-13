@@ -1641,7 +1641,7 @@ void DHT20_FSM(void){
  800110e:	4603      	mov	r3, r0
  8001110:	4618      	mov	r0, r3
  8001112:	f000 f997 	bl	8001444 <LCD_Display_Humid>
-			if (DHT20_getTemp() > 26.3)	DHT20_status = FAN_ON;
+			if (DHT20_getTemp() > 29.3)	DHT20_status = FAN_ON;
  8001116:	f7ff fe4d 	bl	8000db4 <DHT20_getTemp>
  800111a:	4603      	mov	r3, r0
  800111c:	4618      	mov	r0, r3
@@ -1708,7 +1708,7 @@ void DHT20_FSM(void){
  800117c:	bd80      	pop	{r7, pc}
  800117e:	bf00      	nop
  8001180:	cccccccd 	.word	0xcccccccd
- 8001184:	403a4ccc 	.word	0x403a4ccc
+ 8001184:	403d4ccc 	.word	0x403d4ccc
  8001188:	200002d1 	.word	0x200002d1
  800118c:	200008f8 	.word	0x200008f8
 
@@ -4015,11 +4015,8 @@ int main(void)
  80020ea:	f000 fa1d 	bl	8002528 <MX_USART2_UART_Init>
   MX_TIM2_Init();
  80020ee:	f000 f9a5 	bl	800243c <MX_TIM2_Init>
-//  MX_ADC1_Init();
   MX_I2C1_Init();
  80020f2:	f000 f8d5 	bl	80022a0 <MX_I2C1_Init>
-//  MX_TIM4_Init();
-//  MX_TIM3_Init();
   MX_TIM1_Init();
  80020f6:	f000 f901 	bl	80022fc <MX_TIM1_Init>
   /* USER CODE BEGIN 2 */
